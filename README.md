@@ -2,7 +2,7 @@
 An HTTP-based microservice to manage short urls
 
 ## API calls supported
-### 1. Post Request: "/maketiny"
+### 1. Post Request: "/shorten"
 
 - This takes a long URL and converts it into a tinyURL. Then it persists both URLs and the current timestamp into the DB and cache
 - The tiny URL will be exactly 10 characters long, consisting of uppercase letter and lowercase letters
