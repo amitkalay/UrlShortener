@@ -10,7 +10,18 @@ Setup instructions:
 6. Run pip install mongoengine  
 7. To run the service thru Pycharm, go to api.py and click the green arrow in the sidebar.  
 8. If you wish to start it in the command line, enter ```python api.py``` in the terminal  
-9. To run all unit test, right-click the tests directory in Pycharm and select Run Unittests in Tests
+9. To run all unit test, right-click the tests directory in Pycharm and select Run Unittests in Tests  
+10. Download Postman for your desktop and import the TinyURL.postman_collection.json there. You should be all ready to go from there!  
+ 
+Assumptions:  
+1. TinyUrl collisions NEVER happen. There are a total of 62^10 possible tinyUrls, so even if we make millions of URLs, the chances of collisions are very small  
+2. The in-memory cache simulated by the LongUrl's url_cache variable is large enough to hold the tinyUrls of interest to users and should return the full URLs most of the time. In a real system, I would use something like Redis instead.  
+
+Design/Architecture Decisions:  
+1. Used Python + Flask for quick, easy development, and fantastic documentation.
+2. I used MongoDB as I wanted a noSQL database for its better scalability and schema flexibility compared to SQL DBs. It also has great Python drivers like mongoengine, which I used in this project.  
+3. When looking for a full URL based on a shortUrl, I first try to retreive it from the cache, failing which I do a database query.
+4. In my db schema, I decided to allow for the same short URL to be stored many times because I use the count of these URLs and their timestamps to grab the number of times it was accessed in the 24-hour/1-week/all-time period.
 
 ## API calls supported
 ### 1. Post Request: "/shorten"
