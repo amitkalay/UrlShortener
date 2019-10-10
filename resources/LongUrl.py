@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from flask import *
 from model.UrlInfo import UrlInfo
+from model.ShortUrlAccess import ShortUrlAccess
 
 
 class LongUrl(Resource):
@@ -11,19 +12,17 @@ class LongUrl(Resource):
         if "short_url" not in data:
             return {'error': 'need a short_url key-value pair in the payload'}, 500
 
-        # try hitting the cache
         input_short_url = data["short_url"]
+        # mark that short url as being visited
+        ShortUrlAccess(
+            short_url=input_short_url
+        ).save()
+        # try hitting the cache
         if input_short_url in self.url_cache:
-            print("the url was in the cache!")
             long_url = self.url_cache[input_short_url]
             response = dict()
             response["short_url"] = input_short_url
-            response["long_url"] = self.url_cache[input_short_url]
-            # TODO: persist this request to the short_url accesses tables so we can count this as a "hit"
-          #  UrlInfo(
-          #      short_url=input_short_url,
-          #      long_url=long_url
-          #  ).save()
+            response["long_url"] = long_url
             return jsonify(response)
 
         # otherwise pull the long url from the database and return that in the response

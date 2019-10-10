@@ -2,8 +2,6 @@ from flask import *
 from flask_restful import Resource
 from model.ShortUrlAccess import ShortUrlAccess
 
-# TODO: maybe implement a check to see whether the short url actually exists
-
 
 class ReadShortUrl(Resource):
     def post(self):
@@ -15,4 +13,4 @@ class ReadShortUrl(Resource):
             short_url = short_url
         ).save()
 
-        return {'response': 'OK'}
+        return {'response': 'the short url: ' + short_url + ' was accessed'}
