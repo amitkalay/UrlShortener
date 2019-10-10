@@ -22,8 +22,8 @@ class ShortenUrl(Resource):
         LongUrl.url_cache[short_url] = long_url
 
         UrlInfo(
-            short_url = short_url,
-            long_url = long_url
+            short_url=short_url,
+            long_url=long_url
         ).save()
         return jsonify(data)
 
