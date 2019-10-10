@@ -15,14 +15,18 @@ class ShortenUrl(Resource):
             return {'error': 'Please provide a long_url key-value pair in the payload'}, 500
         # generate the short URL by creating a random string that's 10 characters long
         long_url = data["long_url"]
-        short_url = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(10)])
+        short_url = self.generate_short_url(10)
         data["short_url"] = short_url
-        LongUrl.url_cache[short_url] = long_url
-        # print("stored something in the cache!")
 
-        # TODO: persist to a database asynchronously
+        # store the URL in our cache
+        LongUrl.url_cache[short_url] = long_url
+
         UrlInfo(
             short_url = short_url,
             long_url = long_url
         ).save()
         return jsonify(data)
+
+    def generate_short_url(self, length: int) -> string:
+        short_url = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(length)])
+        return short_url
