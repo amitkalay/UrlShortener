@@ -23,60 +23,17 @@ Design/Architecture Decisions:
 3. When looking for a full URL based on a shortUrl, I first try to retreive it from the cache, failing which I do a database query.
 4. In my db schema, I decided to allow for the same short URL to be stored many times because I use the count of these URLs and their timestamps to grab the number of times it was accessed in the 24-hour/1-week/all-time period.
 
-## API calls supported
-### 1. Post Request: "/shorten"
-
-- This takes a long URL and converts it into a tinyURL. Then it persists both URLs and the current timestamp into the DB and cache
-- The tiny URL will be exactly 10 characters long, consisting of uppercase letter and lowercase letters
-- example json payload: 
+API Contract Instructions:  
+Import the TinyUrl.postman_collection.json into POSTMAN and play around with the service from there! You can also use POSTMAN to generate the corresponding cURL commands for the service. i.e. the healthcheck endpoint can be accessed by  
 ``` 
-{
-    "long_url": "someSuperDuperLongUrl"
-}
-```
-- example good json response will contain what the long URL was shortened to: 
-``` 
-{
-    "long_url": "someSuperDuperLongUrl"
-    "short_url": "shorty"
-}
-```
-
-### 2. Post Request: "/findlong"
-
-- This takes a short URL and returns the corresponding long URL. It will try accessing the cache for this, failing which it will grab the data from the DB, persist that in the cache, and return the long URL
-
-- example json payload: 
-``` 
-{
-    "short_url": "gwe34f"
-}
-```
-
-- example json response: 
-``` 
-{
-    "short_url": "gwe34f",
-    "long_url": "superDuperUltraIncrediblyLongURL
-}
-```
-
-### 3. Post Request: "/stats"
-
-- This takes a short URL and returns the number of times it has been accessed over 24 hours, a week and all-time
-- example json payload: 
-``` 
-{
-    "short_url": "gwe34f"
-}
-```
-
-- example json response: 
-``` 
-{
-    "short_url": "gwe34f",
-    "day_accesses": 2,
-    "week_accesses": 12,
-    "all_time_accesses": 30
-}
+GET /healthcheck HTTP/1.1
+Host: localhost:5000
+User-Agent: PostmanRuntime/7.18.0
+Accept: */*
+Cache-Control: no-cache
+Postman-Token: db8d911f-c10f-4ab6-9785-91e9b09dd6d6,6cf1ed08-376a-4fe0-b277-6f6247d631b2
+Host: localhost:5000
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+cache-control: no-cache
 ```
