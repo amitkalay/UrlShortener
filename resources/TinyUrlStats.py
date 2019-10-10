@@ -17,6 +17,7 @@ class TinyUrlStats(Resource):
         hits_since_last_week = self.get_past_week_accesses(input_short_url)
         all_time_hits = self.get_all_time_accesses(input_short_url)
         return {
+            'short_url_accessed': input_short_url,
             'last_24_hour_accesses': hits_since_yesterday,
             'last_week_accesses': hits_since_last_week,
             'all_time_hits': all_time_hits
