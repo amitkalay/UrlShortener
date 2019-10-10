@@ -12,6 +12,7 @@ Setup instructions:
 8. If you wish to start it in the command line, enter ```python api.py``` in the terminal  
 9. To run all unit test, right-click the tests directory in Pycharm and select Run Unittests in Tests  
 10. Download Postman for your desktop and import the TinyURL.postman_collection.json there. You should be all ready to go from there!  
+11. Use MongoDb compass to see and verify that the URLs are getting persisted. Create a database called ```tinyurl_db``` and collections inside that called all_urls and short_url_access  
  
 Assumptions:  
 1. TinyUrl collisions NEVER happen. There are a total of 62^10 possible tinyUrls, so even if we make millions of URLs, the chances of collisions are very small  
