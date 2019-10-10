@@ -4,6 +4,7 @@ from resources.HealthCheck import HealthCheck
 from resources.ShortenUrl import ShortenUrl
 from resources.LongUrl import LongUrl
 from resources.ReadShortUrl import ReadShortUrl
+from resources.TinyUrlStats import TinyUrlStats
 import mongo_setup as mgo
 
 """
@@ -24,6 +25,7 @@ api.add_resource(HealthCheck, '/healthcheck')
 api.add_resource(ShortenUrl, '/shorten')
 api.add_resource(LongUrl, '/getlong')
 api.add_resource(ReadShortUrl, '/shortaccess')
+api.add_resource(TinyUrlStats, '/getstats')
 
 if __name__ == '__main__':
     app.run(debug=True)
