@@ -9,6 +9,7 @@ import mongo_setup as mgo
 
 """
 Installation:
+Download Python and Pycharm. Make sure you get pip with Python if you're on Windows
 pip install flask
 pip install flask-restful
 Install the actual mongo from the website
@@ -28,4 +29,4 @@ api.add_resource(ReadShortUrl, '/shortaccess')
 api.add_resource(TinyUrlStats, '/getstats')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
